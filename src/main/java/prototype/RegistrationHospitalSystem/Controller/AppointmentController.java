@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
 @RestController
 @RequestMapping("api/prototype/")
 public class AppointmentController {
@@ -53,7 +52,7 @@ public class AppointmentController {
 
     @RequestMapping("/")
     String home() {
-        return "<h1>Welcome to Registrar Hospital System</h1>";
+        return "<h1>Welcome to Registrar Hospital System | Appointment</h1>";
     }
 
     @GetMapping("/appointments") // get all appointments
@@ -62,7 +61,7 @@ public class AppointmentController {
     }
 
     @PostMapping("/appointments") // create appointments
-    public Appointment createappointment(@RequestBody Appointment appointment) {
+    public Appointment createAppointment(@RequestBody Appointment appointment) {
         return appointmentRepository.save(appointment);
     }
 
@@ -74,7 +73,7 @@ public class AppointmentController {
     }
 
     @PutMapping("/appointments/{id}") // update appointment
-    public ResponseEntity<Appointment> updateDoctor(@PathVariable Long id, @RequestBody Appointment appointmentDetails) throws ResourceNotFoundException {
+    public ResponseEntity<Appointment> updateAppointment(@PathVariable Long id, @RequestBody Appointment appointmentDetails) throws ResourceNotFoundException {
         Appointment appointment = appointmentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not exist with id :" + id));
 
@@ -82,7 +81,7 @@ public class AppointmentController {
         appointment.setDoctorId(appointmentDetails.getDoctorId());
         appointment.setLaboratoryId(appointmentDetails.getLaboratoryId());
         appointment.setDateRecord(appointmentDetails.getDateRecord());
-        appointment.setWard(appointmentDetails.getWard());
+        appointment.setReceptionDescription(appointmentDetails.getReceptionDescription());
 
         Appointment updatedAppointment = appointmentRepository.save(appointment);
         return ResponseEntity.ok(updatedAppointment);
@@ -98,5 +97,4 @@ public class AppointmentController {
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
     }
-
 }

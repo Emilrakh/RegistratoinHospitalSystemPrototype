@@ -26,8 +26,8 @@ public class Appointment {
     @Column(name = "date_record")
     private String dateRecord;
 
-    @Column(name = "ward")
-    private String ward;
+    @Column(name = "reception description")
+    private String receptionDescription;
 
     public Appointment() { }
 
@@ -37,7 +37,7 @@ public class Appointment {
         this.doctorId = doctorId;
         this.laboratoryId = laboratoryId;
         this.dateRecord = dateRecord;
-        this.ward = ward;
+        this.receptionDescription = receptionDescription;
     }
 
     public long getId() {
@@ -75,10 +75,8 @@ public class Appointment {
         this.dateRecord = dateRecord;
     }
 
-    public String getWard() {
-        return ward;
-    }
-    public void setWard(String ward) {
-        this.ward = ward;
+    public String getReceptionDescription() { return receptionDescription; }
+    public void setReceptionDescription(String receptionDescription) {
+        this.receptionDescription = receptionDescription;
     }
 }
