@@ -3,16 +3,14 @@ package prototype.RegistrationHospitalSystem.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import prototype.RegistrationHospitalSystem.Repository.DoctorRepository;
-import prototype.RegistrationHospitalSystem.Repository.PatientRepository;
-import prototype.RegistrationHospitalSystem.Repository.RegistrarRepository;
-import prototype.RegistrationHospitalSystem.Repository.AppointmentRepository;
+import prototype.RegistrationHospitalSystem.Repository.*;
 
 import prototype.RegistrationHospitalSystem.Exception.ResourceNotFoundException;
 import prototype.RegistrationHospitalSystem.Model.Doctor;
 import prototype.RegistrationHospitalSystem.Model.Patient;
 import prototype.RegistrationHospitalSystem.Model.Registrar;
 import prototype.RegistrationHospitalSystem.Model.Appointment;
+import prototype.RegistrationHospitalSystem.Model.Laboratory;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +32,12 @@ public class AppointmentController {
     @Autowired
     AppointmentRepository appointmentRepository;
 
+    @Autowired
+    LaboratoryRepository laboratoryRepository;
+
+    @Autowired
+    DoctorScheduleRepository doctorScheduleRepository;
+
     public AppointmentController(DoctorRepository doctorRepository) {
         this.doctorRepository = doctorRepository;
     }
@@ -48,6 +52,10 @@ public class AppointmentController {
 
     public AppointmentController(AppointmentRepository appointmentRepository) {
         this.appointmentRepository = appointmentRepository;
+    }
+
+    public AppointmentController(LaboratoryRepository laboratoryRepository) {
+        this.laboratoryRepository = laboratoryRepository;
     }
 
     @RequestMapping("/")
