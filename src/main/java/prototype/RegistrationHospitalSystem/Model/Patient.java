@@ -13,7 +13,7 @@ public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long patientID;
+    private long id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -65,11 +65,11 @@ public class Patient {
         this.chronicDisease = chronicDisease;
     }
 
-    public long getPatientID() {
-        return patientID;
+    public long getId() {
+        return id;
     }
-    public void setPatientID(long patientID) {
-        this.patientID = patientID;
+    public void setId(long patientID) {
+        this.id = id;
     }
 
     public String getFirstName() {

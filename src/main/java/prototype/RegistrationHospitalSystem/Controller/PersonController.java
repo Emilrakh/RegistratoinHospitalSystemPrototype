@@ -2,14 +2,7 @@ package prototype.RegistrationHospitalSystem.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import prototype.RegistrationHospitalSystem.Exception.ResourceNotFoundException;
 import prototype.RegistrationHospitalSystem.Model.Doctor;
@@ -27,7 +20,7 @@ import java.util.Map;
 @RequestMapping("api/prototype/")
 public class PersonController {
 
-    final
+    @Autowired
     DoctorRepository doctorRepository;
 
     @Autowired
@@ -40,9 +33,18 @@ public class PersonController {
         this.doctorRepository = doctorRepository;
     }
 
+    public PersonController(PatientRepository patientRepository) {
+        this.patientRepository = patientRepository;
+    }
+
+    public PersonController(RegistrarRepository registrarRepository) {
+        this.registrarRepository = registrarRepository;
+    }
+
+
     @RequestMapping("/")
     String home() {
-        return "<h1>Welcome to Registrar Clinic System</h1>";
+        return "<h1>Welcome to Registrar Hospital System</h1>";
     }
 
     //Doctors
@@ -94,46 +96,46 @@ public class PersonController {
 
 //    Registrar
 
-//    @GetMapping("/registrars") // get all registrar
-//    public List<Registrar> getAllRegistrars(){
-//        return registrarRepository.findAll();
-//    }
-//
-//    @PostMapping("/registrars") // create registrar
-//    public Registrar createRegistrar(@RequestBody Registrar registrar) {
-//        return registrarRepository.save(registrar);
-//    }
-//
-//    @GetMapping("/registrars/{id}") // get registrar by id
-//    public ResponseEntity<Registrar> getRegistrarById(@PathVariable Long id) throws ResourceNotFoundException {
-//        Registrar registrar = registrarRepository.findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("Registrar not exist with id :" + id));
-//        return ResponseEntity.ok(registrar);
-//    }
-//
-//    @PutMapping("/registrars/{id}") // update registrar
-//    public ResponseEntity<Registrar> updateRegistrar(@PathVariable Long id, @RequestBody Registrar patientDetails) throws ResourceNotFoundException {
-//        Registrar registrar = registrarRepository.findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("Registrar not exist with id :" + id));
-//
-//        registrar.setFirstName(patientDetails.getFirstName());
-//        registrar.setLastName(patientDetails.getLastName());
-//        registrar.setGender(patientDetails.getGender());
-//
-//        Registrar updatedRegistrar = registrarRepository.save(registrar);
-//        return ResponseEntity.ok(updatedRegistrar);
-//    }
-//
-//    @DeleteMapping("/registrars/{id}") // delete registrar
-//    public ResponseEntity<Map<String, Boolean>> deleteRegistrar(@PathVariable Long id) throws ResourceNotFoundException {
-//        Registrar registrar = registrarRepository.findById(id)
-//                .orElseThrow(() -> new ResourceNotFoundException("Registrar not exist with id :" + id));
-//
-//        registrarRepository.delete(registrar);
-//        Map<String, Boolean> response = new HashMap<>();
-//        response.put("deleted", Boolean.TRUE);
-//        return ResponseEntity.ok(response);
-//    }
+    @GetMapping("/registrars") // get all registrar
+    public List<Registrar> getAllRegistrars(){
+        return registrarRepository.findAll();
+    }
+
+    @PostMapping("/registrars") // create registrar
+    public Registrar createRegistrar(@RequestBody Registrar registrar) {
+        return registrarRepository.save(registrar);
+    }
+
+    @GetMapping("/registrars/{id}") // get registrar by id
+    public ResponseEntity<Registrar> getRegistrarById(@PathVariable Long id) throws ResourceNotFoundException {
+        Registrar registrar = registrarRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Registrar not exist with id :" + id));
+        return ResponseEntity.ok(registrar);
+    }
+
+    @PutMapping("/registrars/{id}") // update registrar
+    public ResponseEntity<Registrar> updateRegistrar(@PathVariable Long id, @RequestBody Registrar patientDetails) throws ResourceNotFoundException {
+        Registrar registrar = registrarRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Registrar not exist with id :" + id));
+
+        registrar.setFirstName(patientDetails.getFirstName());
+        registrar.setLastName(patientDetails.getLastName());
+        registrar.setGender(patientDetails.getGender());
+
+        Registrar updatedRegistrar = registrarRepository.save(registrar);
+        return ResponseEntity.ok(updatedRegistrar);
+    }
+
+    @DeleteMapping("/registrars/{id}") // delete registrar
+    public ResponseEntity<Map<String, Boolean>> deleteRegistrar(@PathVariable Long id) throws ResourceNotFoundException {
+        Registrar registrar = registrarRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Registrar not exist with id :" + id));
+
+        registrarRepository.delete(registrar);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
+    }
 
     //Patient
 
